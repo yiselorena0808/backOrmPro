@@ -25,6 +25,9 @@ export default class Usuario extends BaseModel {
   @column()
   declare contrasena: string
 
+  @column()
+  declare confirmacion: string
+
   @hasMany(() => Reporte)
   declare reportes: HasMany<typeof Reporte>
 

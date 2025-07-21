@@ -4,6 +4,50 @@ import { messages } from '@vinejs/vine/defaults'
 const usuarioService = new UsuarioService()
 
 class UsuariosController {
+   async register({ request, response }) {
+  try {
+    const {
+      nombre,
+      apellido,
+      nombre_usuario,
+      correo_electronico,
+      cargo,
+      contrasena,
+      confirmacion
+    } = request.body();
+
+    const resultado = await usuarioService.register(
+      nombre,
+      apellido,
+      nombre_usuario,
+      correo_electronico,
+      cargo,
+      contrasena,
+      confirmacion
+    );
+
+    if (resultado.mensaje !== 'Registro correcto') {
+      return response.status(400).json(resultado);
+    }
+
+    return response.status(201).json(resultado);
+
+  } catch (e) {
+    return response.status(500).json({ error: e.message });
+  }
+}
+
+  async login({request, response}){
+    try{
+      const {correo_electronico,contrasena}= request.body()
+     const respuesta = await usuarioService.login(correo_electronico,contrasena)
+     return response.json({msj:'login exitoso',respuesta})
+
+    } catch(e) {
+      return response.json({error:e.message})
+    }
+  }
+
   async crearUsuario({ request, response }) {
     try {
       const datos = request.body()
