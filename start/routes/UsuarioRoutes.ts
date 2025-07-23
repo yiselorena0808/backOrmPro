@@ -3,7 +3,6 @@ import UsuariosController from "../../app/controller/UsuarioController.js"
 
 const usuario = new UsuariosController()
 
-Router.post('/crearUsuario', usuario.crearUsuario)
 Router.get('/listarUsuarios', usuario.listarUsuarios)
 Router.get('/idUsuario/:id', usuario.listarUsuarioId)
 Router.put('/actualizarUsuario/:id', usuario.actualizarUsuario)

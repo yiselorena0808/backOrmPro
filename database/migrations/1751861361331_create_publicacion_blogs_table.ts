@@ -6,11 +6,16 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
+       table.integer('id_usuario').unsigned().notNullable()
+        .references('id').inTable('usuarios')
+        .onDelete('CASCADE')  
+        .onUpdate('CASCADE')
+      table.string('nombre_usuario')
       table.string('titulo')
+      table.date('fecha_Actividad')
       table.text('descripcion')
       table.text('imagen')
       table.text('archivo')
-      table.timestamp('fecha_creacion', { useTz: true }).defaultTo(this.now())
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
       table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })

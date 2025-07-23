@@ -1,10 +1,15 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import type {BelongsTo} from '@adonisjs/lucid/orm'
+import Usuario from './usuario.js'
 
 export default class GestionEpp extends BaseModel {
    public static table = 'gestion_epp'
   @column({ isPrimary: true })
   declare id: number
+
+  @column()
+  declare id_usuario:number
 
   @column()
   declare nombre: string
@@ -39,5 +44,7 @@ export default class GestionEpp extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
+  @belongsTo(() => Usuario)
+   declare usuario: BelongsTo<typeof Usuario>
   
 }

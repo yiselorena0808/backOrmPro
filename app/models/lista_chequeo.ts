@@ -1,9 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Usuario from './usuario.js'
+import type {BelongsTo} from '@adonisjs/lucid/orm'
 
 export default class ListaChequeo extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
+
+  @column()
+  declare id_usuario:number
 
   @column()
   declare usuario_nombre: string
@@ -34,4 +39,7 @@ export default class ListaChequeo extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+   @belongsTo(() => Usuario)
+     declare usuario: BelongsTo<typeof Usuario>
 }

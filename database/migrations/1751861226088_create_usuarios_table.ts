@@ -12,7 +12,6 @@ export default class extends BaseSchema {
       table.string('correo_electronico', 150).unique().notNullable()
       table.string('cargo', 100)
       table.text('contrasena').notNullable()
-      table.text('confirmacion').notNullable()
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
       table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })

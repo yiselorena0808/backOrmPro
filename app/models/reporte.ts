@@ -8,10 +8,7 @@ export default class Reporte extends BaseModel {
   declare id_reporte: number
 
   @column()
-  declare usuario_id: number
-
-  @belongsTo(() => Usuario)
-  declare usuario: BelongsTo<typeof Usuario>
+  declare id_usuario: number
 
   @column()
   declare nombre_usuario: string
@@ -45,4 +42,8 @@ export default class Reporte extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @belongsTo(() => Usuario)
+  declare usuario: BelongsTo<typeof Usuario>
+
 }
