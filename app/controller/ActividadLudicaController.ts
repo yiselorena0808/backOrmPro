@@ -22,6 +22,25 @@ class ActividadesLudicasController {
       return response.json({ error: error.message, messages })
     }
   }
+  async eliminar({params,request,response}){
+    try{
+      const {id}=params
+      const eliminar= await actividadLudicaService.eliminar(id)
+      return response.json({msj:eliminar})
+    }catch(error){
+      return response.json({error:error.message})
+
+    }
+  }
+  async actualizar({params,request,response}){
+    try{
+      const {id}= params
+      const actualizar=await actividadLudicaService.actualizar(id,id)
+      return response.json({msj:actualizar})
+    }catch(error){
+      return response.json({error:error.message})
+    }
+  }
 }
 
 export default ActividadesLudicasController

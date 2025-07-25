@@ -22,6 +22,24 @@ class BlogController {
       return response.json({ error: error.message, messages })
     }
   }
+  async actualizar({params,request,response}){
+    try{
+      const {id}= params
+      const res= await blogService.actualizar(id)
+      return response.json({msj:res})
+    }catch(error){
+      return response.json({error:error.message})
+
+    }
+  }
+  async eliminar({params,request,response}){
+   try{ const {id}= params
+    const res= await blogService.eliminar(id)
+    return response.json({msj:res})
+  }catch(error){
+    return response.json({error:error.message})
+  }
+  }
 }
 
 export default BlogController
