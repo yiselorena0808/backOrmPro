@@ -1,7 +1,9 @@
 import Router from "@adonisjs/core/services/router"
 import UsuariosController from "../../app/controller/UsuarioController.js"
+import AuthJwt from "#middleware/auth_jwt"
 
 const usuario = new UsuariosController()
+const authJwt= new AuthJwt
 
 Router.get('/listarUsuarios', usuario.listarUsuarios)
 Router.get('/idUsuario/:id', usuario.listarUsuarioId)
