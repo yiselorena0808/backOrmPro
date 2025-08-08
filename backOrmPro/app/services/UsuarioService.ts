@@ -1,5 +1,9 @@
 import bcrypt from 'bcryptjs'
 import Usuario from '#models/usuario';
+import jwt from 'jsonwebtoken'
+
+const SECRET = process.env.JWT_SECRET;
+
 
 class UsuarioService {
 async register(
@@ -38,21 +42,32 @@ async register(
   }
 
   async login(correo_electronico: string, contrasena: string) {
-    const user = await Usuario.query()
-      .where('correo_electronico', correo_electronico)
-      .first();
-
-    if (!user) {
-      return 'Usuario no encontrado';
-    }
-
-    const isValid = await bcrypt.compare(contrasena, user.contrasena);
-    if (!isValid) {
-      return 'contraseña incorrecta';
-    }
-
-    return { mensaje: 'login correcto', user };
+  if (!correo_electronico || !contrasena) {
+    throw new Error("El correo y la contraseña son obligatorios");
   }
+
+  const user = await Usuario.query()
+    .where('correo_electronico', correo_electronico)
+    .first();
+
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  const isValid = await bcrypt.compare(contrasena, user.contrasena);
+  if (!isValid) {
+    throw new Error("Contraseña incorrecta");
+  }
+
+  const token = jwt.sign(
+    { id: user.id },
+    SECRET,
+    { expiresIn: '1h' }
+  );
+
+  return { token, user };
+}
+
  
   async listar() {
     return await Usuario.query()

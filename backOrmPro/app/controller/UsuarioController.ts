@@ -52,10 +52,11 @@ class UsuariosController {
         return response.status(401).json({ mensaje: resultado })
       }
 
-      const user = resultado.user
+        const { token, user } = resultado;
 
       return response.json({
         mensaje: 'bienvenido',
+        token,
         nombre: user.nombre,
         correo: user.correo_electronico,
       })
