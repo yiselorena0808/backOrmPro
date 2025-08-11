@@ -1,11 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Reporte from './reporte.js'
 import PublicacionBlog from './publicacion_blog.js'
 import GestionEpp from './gestion_epp.js'
 import ListaChequeo from './lista_chequeo.js'
 import ActividadLudica from './actividad_ludica.js'
+import Tenat from './tenat.js'
+//llamar al tenant
 
 export default class Usuario extends BaseModel {
   @column({ isPrimary: true })
@@ -28,6 +30,12 @@ export default class Usuario extends BaseModel {
 
   @column()
   declare contrasena: string
+
+  @column()
+  declare id_tenat:number
+
+  @belongsTo(() => Tenat)
+  declare tenant: BelongsTo<typeof Tenat>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
