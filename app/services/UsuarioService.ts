@@ -13,6 +13,7 @@ async register(
     cargo: string,
     contrasena: string,
     confirmacion: string
+    id_tenat:number
   ) {
     const existente = await Usuario.query()
       .where('correo_electronico', correo_electronico)
@@ -35,6 +36,7 @@ async register(
       correo_electronico,
       cargo,
       contrasena: hashedPassword,
+      id_tenat
     });
 
     return { mensaje: 'Registro correcto', user };
